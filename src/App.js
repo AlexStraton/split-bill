@@ -27,6 +27,7 @@ const initialFriends = [
 
 export default function App() {
   const [isVisible, setIsVisible] = useState(false);
+  const [friends, setFriends] = useState(initialFriends);
 
   function toggleVisibility() {
     setIsVisible((prev) => !prev);
@@ -34,8 +35,8 @@ export default function App() {
   return (
     <div className='app'>
       <div className='sidebar'>
-        <Friends initialFriends={initialFriends} />
-        {isVisible && <AddFriend />}
+        <Friends friends={friends} />
+        {isVisible && <AddFriend setFriends={setFriends} />}
         <Button onClick={toggleVisibility}>
           {isVisible ? "Close" : "Add Friend"}
         </Button>

@@ -1,13 +1,46 @@
+import { useState } from "react";
 import Button from "./Button";
 
-export default function AddFriend() {
+export default function AddFriend({ setFriends }) {
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [error, setError] = useState(null);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!name || !image) {
+      setError("Please fill in both fields");
+      return;
+    }
+    const newFriend = {
+      name,
+      image,
+      balance: 0,
+      id: Math.round(Math.random() * 10000),
+    };
+    setName("");
+    setImage("");
+    setError(null);
+    setFriends((friends) => [...friends, newFriend]);
+  }
+
   return (
     <>
-      <form className='form-add-friend'>
+      <form onSubmit={handleSubmit} className='form-add-friend'>
         <label>Friend name</label>
-        <input type='text' />
+        <input
+          value={name}
+          type='text'
+          onChange={(e) => setName(e.target.value)}
+        />
         <label>Image url</label>
-        <input type='text' />
+        <input
+          value={image}
+          type='text'
+          onChange={(e) => setImage(e.target.value)}
+        />
+        {error && <p>{error}</p>}
         <Button>Add</Button>
       </form>
     </>
