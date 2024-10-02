@@ -2,6 +2,7 @@ import Friends from "./components/Friends";
 import AddFriend from "./components/AddFriend";
 import Button from "./components/Button";
 import SplitBill from "./components/SplitBill";
+import { useState } from "react";
 
 const initialFriends = [
   {
@@ -25,13 +26,21 @@ const initialFriends = [
 ];
 
 export default function App() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  function toggleVisibility() {
+    setIsVisible((prev) => !prev);
+  }
   return (
     <div className='app'>
       <div className='sidebar'>
         <Friends initialFriends={initialFriends} />
-        <AddFriend />
-        <Button>Add Friend</Button>
+        {isVisible && <AddFriend />}
+        <Button onClick={toggleVisibility}>
+          {isVisible ? "Close" : "Add Friend"}
+        </Button>
       </div>
+
       <SplitBill />
     </div>
   );
