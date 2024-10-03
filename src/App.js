@@ -28,21 +28,28 @@ const initialFriends = [
 export default function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [friends, setFriends] = useState(initialFriends);
+  const [selectedFriend, setSelectedFriend] = useState(null);
 
   function toggleVisibility() {
     setIsVisible((prev) => !prev);
   }
+
+  function handleSelection(friend) {
+    setSelectedFriend(friend);
+  }
   return (
     <div className='app'>
       <div className='sidebar'>
-        <Friends friends={friends} />
-        {isVisible && <AddFriend setFriends={setFriends} />}
+        <Friends friends={friends} onSelection={handleSelection} />
+
+        {isVisible && (
+          <AddFriend setFriends={setFriends} setIsVisible={setIsVisible} />
+        )}
         <Button onClick={toggleVisibility}>
           {isVisible ? "Close" : "Add Friend"}
         </Button>
       </div>
-
-      <SplitBill />
+      {selectedFriend && <SplitBill selectedFriend={selectedFriend} />}
     </div>
   );
 }

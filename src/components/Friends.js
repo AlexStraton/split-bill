@@ -1,12 +1,13 @@
+import { useState } from "react";
 import Button from "./Button";
 
-export default function Friends({ friends }) {
+export default function Friends({ friends, onSelection }) {
   return (
     <div className='sidebar'>
       {friends.map((friend, i) => {
         return (
           <ul key={i}>
-            <Friend friend={friend} key={friend.id} />
+            <Friend friend={friend} key={friend.id} onSelection={onSelection} />
           </ul>
         );
       })}
@@ -14,8 +15,8 @@ export default function Friends({ friends }) {
   );
 }
 
-function Friend({ friend }) {
-  console.log(friend.image);
+function Friend({ friend, onSelection }) {
+  // const [showSplitBill, setShowSplitBill] = useState(false);
 
   return (
     <div>
@@ -34,7 +35,9 @@ function Friend({ friend }) {
             You owe {friend.name} {friend.balance}
           </p>
         )}
-        <Button>Select</Button>
+        <Button onClick={() => onSelection(friend)}>
+          {/* {showSplitBill ? "Select" : "Close"} */}Select
+        </Button>
       </li>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
 
-export default function AddFriend({ setFriends }) {
+export default function AddFriend({ setFriends, setIsVisible }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [error, setError] = useState(null);
@@ -23,6 +23,7 @@ export default function AddFriend({ setFriends }) {
     setImage("");
     setError(null);
     setFriends((friends) => [...friends, newFriend]);
+    setIsVisible(false);
   }
 
   return (
