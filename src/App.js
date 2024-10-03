@@ -35,12 +35,18 @@ export default function App() {
   }
 
   function handleSelection(friend) {
-    setSelectedFriend(friend);
+    setSelectedFriend((current) => (current?.id === friend.id ? null : friend));
+    setIsVisible(false);
   }
+
   return (
     <div className='app'>
       <div className='sidebar'>
-        <Friends friends={friends} onSelection={handleSelection} />
+        <Friends
+          friends={friends}
+          onSelection={handleSelection}
+          selectedFriend={selectedFriend}
+        />
 
         {isVisible && (
           <AddFriend setFriends={setFriends} setIsVisible={setIsVisible} />

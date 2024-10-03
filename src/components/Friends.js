@@ -1,13 +1,17 @@
-import { useState } from "react";
 import Button from "./Button";
 
-export default function Friends({ friends, onSelection }) {
+export default function Friends({ friends, onSelection, selectedFriend }) {
   return (
     <div className='sidebar'>
       {friends.map((friend, i) => {
         return (
           <ul key={i}>
-            <Friend friend={friend} key={friend.id} onSelection={onSelection} />
+            <Friend
+              friend={friend}
+              key={friend.id}
+              onSelection={onSelection}
+              selectedFriend={selectedFriend}
+            />
           </ul>
         );
       })}
@@ -15,12 +19,10 @@ export default function Friends({ friends, onSelection }) {
   );
 }
 
-function Friend({ friend, onSelection }) {
-  // const [showSplitBill, setShowSplitBill] = useState(false);
-
+function Friend({ friend, onSelection, selectedFriend }) {
   return (
     <div>
-      <li>
+      <li className={selectedFriend?.id === friend.id ? "selected" : null}>
         <img src={friend.image} alt={`${friend.name}'s avatar`}></img>
         <h1>{friend.name}</h1>
 
@@ -36,7 +38,7 @@ function Friend({ friend, onSelection }) {
           </p>
         )}
         <Button onClick={() => onSelection(friend)}>
-          {/* {showSplitBill ? "Select" : "Close"} */}Select
+          {selectedFriend?.id === friend.id ? "Close" : "Select"}
         </Button>
       </li>
     </div>
